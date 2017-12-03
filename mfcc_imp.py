@@ -154,47 +154,7 @@ def decorrelate_feat(fbank, samplerate):
 		mfcc *= lift
 		mfcc_list.append([tag, mfcc])
 	return mfcc_list
-'''
-def pca(mfcc):
 	
-	mfcc = np.transpose(mfcc)
-	X = np.asarray(mfcc)
-	print "###############X shape", X.shape
-	X_std = StandardScaler().fit_transform(X)
-	mean_vec = np.mean(X_std, axis=0)
-	cov_mat = (X_std - mean_vec).T.dot((X_std - mean_vec)) / (X_std.shape[0]-1)
-	#print "############ cov matrix shape", cov_mat.shape
-	#print('Covariance matrix \n%s' %cov_mat)
-	cov_mat = np.cov(X_std.T)
-	eig_vals, eig_vecs = np.linalg.eig(cov_mat)
-	eig_vals = [float(i) for i in eig_vals]
-	eig_vals = np.asarray(eig_vals)
-	print "################eig_vals", eig_vals.shape
-	print "################eig_vecs", eig_vecs.shape	
-	eig_pairs = [(np.abs(eig_vals[i]), eig_vecs[:,i]) for i in range(len(eig_vals))]
-	eig_pairs.sort()
-
-	eig_pairs.reverse()
-
-	#for i in eig_pairs:
-	#   print(i[0])
-	matrix_w = np.hstack((eig_pairs[0][1].reshape(l,1), 
-	                      eig_pairs[1][1].reshape(l,1)))
-
-	print "#####################DONE##########################"
-	#print('Matrix W:\n', matrix_w)
-	Y = X_std.dot(matrix_w)
-	print Y.shape
-
-
-	mfcc = np.transpose(mfcc)
-	X = np.asarray(mfcc)
-	X_std = StandardScaler().fit_transform(X)
-	sklearn_pca = sklearnPCA(n_components=10)
-	Y_sklearn = sklearn_pca.fit_transform(X_std)
-	
-	return
-'''
 if __name__=="__main__":
 	print sys.argv[1]
 	#Extracting data in the form [start_time, end_time, emotion_tag].

@@ -25,24 +25,21 @@ def loadData(filename):
 if __name__=="__main__":
 	X_, y = loadData(sys.argv[1])
 	X_new = preprocessing.scale(X_)
-
-	num_features = 3
-	feel_dict = {"anxiety":1,
-	"boredom":2,
-	"cold":1,
-	"contempt":2,
-	"despair":2,
-	"disgust":1,
-	"elation":1,
-	"happy":2,
-	"hot":1,
-	"interest":0,
-	"neutral":0,
-	"panic":1,
-	"pride":1,
-	"sadness":2,
-	"shame":1
-	}
+	cluster_no = sys.argv[1]
+	if cluster_no==1:
+		num_features = 3
+		feel_dict = {"neutral":2,"disgust":0,"panic":0,"anxiety":2,"hot":1,"cold":2,"despair":2,"sadness":0,"elation":1,"happy":1,"interest":1,"boredom":2,"shame":2,"pride":2,"contempt":0}
+	if cluster_no==2:
+		num_features = 3
+		feel_dict = {"anxiety":1,"boredom":2,"cold":1,"contempt":2,"despair":2,"disgust":1,"elation":1,"happy":2,"hot":1,"interest":0,"neutral":0,"panic":1,"pride":1,"sadness":2,"shame":1}
+	if cluster_no==3:
+		num_features = 2
+		feel_dict = {"anxiety":1,"boredom":0,"cold":1,"contempt":1,"despair":0,"disgust":0,"elation":0,"happy":0,"hot":0,"interest":1,"neutral":1,"panic":0,"pride":1,"sadness":0,"shame":1}
+	if cluster_no==4:
+		feel_dict = {"anxiety":2,"boredom":2,"cold":0,"contempt":2,"despair":2,"disgust":0,"elation":1,"happy":0,"hot":1,"interest":0,"neutral":2,"panic":2,"pride":1,"sadness":2,"shame":0}
+	if cluster_no==5:
+		num_features = 3
+		feel_dict = {"anxiety":1,"boredom":1,"cold":1,"contempt":1,"despair":0,"disgust":1,"elation":1,"happy":1,"hot":1,"interest":1,"neutral":2,"panic":2,"pride":1,"sadness":1,"shame":1}
 
 	Y_new = []
 	for item in y:
@@ -135,15 +132,8 @@ if __name__=="__main__":
 		count = 0
 		missclass = 0
 		acc.append(accuracy_score(pred, y_test))
-
 	print np.mean(acc)
-	'''
-	for i in range(0,len(pred)):
-		count = count + 1
-		if pred[i] != y_test[i]:
-			missclass = missclass + 1
-	print float(missclass)/(count)
-	'''
+	
 
 			
 			

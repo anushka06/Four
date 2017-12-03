@@ -23,10 +23,32 @@ def loadData(filename):
 
 if __name__=="__main__":
 	X_, y = loadData(sys.argv[1])
+	group = sys.argv[2]
+	if group!="Valence" and group!="Arousal" and group!="Arousal_Valence":
+		sys.exit( "Correct format $SVM_test.py pca_file Valence/Arousal/Arousal_Valence")
 	X = preprocessing.scale(X_)
 
-	num_features = 3
-	feel_dict = {"neutral":1,
+	
+	if group=="Valence":
+		num_features = 3
+		feel_dict = {"neutral":1,
+		"disgust":0,
+		"panic":0,
+		"anxiety":0,
+		"hot":0,
+		"cold":0,
+		"despair":0,
+		"sadness":0,
+		"elation":2,
+		"happy":2,
+		"interest":2,
+		"boredom":1,
+		"shame":0,
+		"pride":2,
+		"contempt":0}
+	if group=="Arousal":
+		num_features = 3
+		feel_dict = {"neutral":1,
 	"disgust":1,
 	"panic":0,
 	"anxiety":0,
@@ -41,6 +63,23 @@ if __name__=="__main__":
 	"shame":1,
 	"pride":1,
 	"contempt":1}
+	if group == "Arousal_Valence":
+		num_features = 3
+		feel_dict = {"neutral":6,
+	"disgust":2,
+	"panic":0,
+	"anxiety":0,
+	"hot":0,
+	"cold":2,
+	"despair":4,
+	"sadness":2,
+	"elation":1,
+	"happy":3,
+	"interest":3,
+	"boredom":5,
+	"shame":2,
+	"pride":3,
+	"contempt":2}
 
 	Y = []
 	for item in y:
